@@ -62,7 +62,7 @@ export default function ContactPage() {
               </div>
             </div>
             
-            <div className="mt-16 text-center">
+            <div className="mt-16 text-center ">
               <h2 className="mb-6 text-2xl font-bold">Follow YABA</h2>
               <div className="flex justify-center space-x-6">
                 <Link href="#" className="text-foreground hover:text-primary">Instagram</Link>
