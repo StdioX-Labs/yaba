@@ -11,14 +11,20 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Increase function timeout and memory
+# Correct functions configuration
 [functions]
   node_bundler = "esbuild"
-  timeout = 30
-  memory = 3008
+  directory = "netlify/functions"
 
-# Redirect rules
+# Redirects for single-page application
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Optional: Specify function-level configurations if needed
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
