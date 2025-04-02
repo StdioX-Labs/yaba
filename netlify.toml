@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm install --no-frozen-lockfile && pnpm run build"
+  command = "npm install --legacy-peer-deps && npm run build"
   publish = ".next"
 
 [build.environment]
@@ -26,7 +26,7 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Optional: Configure Netlify Image CDN for optimized images
+# Configure Netlify Image CDN for optimized images
 [build.processing]
   skip_processing = false
 [build.processing.images]
