@@ -20,16 +20,16 @@ export function SiteHeader() {
           <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
             Home
           </Link>
-          <Link href="#shows" className="text-sm font-medium transition-colors hover:text-primary">
+          <Link href="/#shows" className="text-sm font-medium transition-colors hover:text-primary">
             Shows
           </Link>
-          <Link href="#gallery" className="text-sm font-medium transition-colors hover:text-primary">
+          <Link href="/#gallery" className="text-sm font-medium transition-colors hover:text-primary">
             Gallery
           </Link>
-          <Link href="#merchandise" className="text-sm font-medium transition-colors hover:text-primary">
+          <Link href="/#merchandise" className="text-sm font-medium transition-colors hover:text-primary">
             Merchandise
           </Link>
-          <Link href="#about" className="text-sm font-medium transition-colors hover:text-primary">
+          <Link href="/#about" className="text-sm font-medium transition-colors hover:text-primary">
             About
           </Link>
           <Link href="/contact" className="text-sm font-medium transition-colors hover:text-primary">
@@ -57,28 +57,28 @@ export function SiteHeader() {
                 Home
               </Link>
               <Link
-                href="#shows"
+                href="/#shows"
                 className="text-lg font-medium transition-colors hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Shows
               </Link>
               <Link
-                href="#gallery"
+                href="/#gallery"
                 className="text-lg font-medium transition-colors hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Gallery
               </Link>
               <Link
-                href="#merchandise"
+                href="/#merchandise"
                 className="text-lg font-medium transition-colors hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Merchandise
               </Link>
               <Link
-                href="#about"
+                href="/#about"
                 className="text-lg font-medium transition-colors hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
