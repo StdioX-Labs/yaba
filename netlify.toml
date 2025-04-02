@@ -1,5 +1,5 @@
 [build]
-  command = "npm install --legacy-peer-deps --force && npm run build"
+  command = "pnpm install --legacy-peer-deps --force && pnpm run build"
   publish = "out"
 
 [build.environment]
