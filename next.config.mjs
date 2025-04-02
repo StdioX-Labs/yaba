@@ -1,4 +1,4 @@
-
+// next.config.mjs
 let userConfig = undefined
 try {
   userConfig = await import('./v0-user-next.config')
@@ -26,8 +26,8 @@ const nextConfig = {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
-    // Attempt to reduce bundle sizes
-    optimizeCss: true,
+    // Disabling optimizeCss as it requires critters dependency
+    optimizeCss: false,
     // Reduce function size by disabling unused features
     serverComponentsExternalPackages: ['@swc/helpers', 'react-dom', 'react'],
   },

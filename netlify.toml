@@ -1,10 +1,11 @@
 [build]
-  command = "pnpm run build"
+  command = "pnpm install --no-frozen-lockfile && pnpm run build"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=4096"
+  NEXT_DISABLE_CSS_OPTIMIZATION = "true"
 
 [functions]
   # Increase the function size limit (default is 10MB)
