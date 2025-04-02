@@ -1,3 +1,4 @@
+
 let userConfig = undefined
 try {
   userConfig = await import('./v0-user-next.config')
@@ -16,10 +17,19 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Add output configuration for smaller serverless functions
+  output: 'standalone',
+  // Optimize bundle size
+  swcMinify: true,
+  // Reduce the size of the generated serverless functions
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
+    // Attempt to reduce bundle sizes
+    optimizeCss: true,
+    // Reduce function size by disabling unused features
+    serverComponentsExternalPackages: ['@swc/helpers', 'react-dom', 'react'],
   },
 }
 
