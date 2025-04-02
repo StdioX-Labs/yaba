@@ -1,7 +1,8 @@
 [build]
-  command = "npm install && npm run build"
+  command = "npm install --legacy-peer-deps --force && npm run build"
   publish = "out"
 
 [build.environment]
   NODE_VERSION = "18"
   NEXT_STATIC_EXPORT = "true"
+  NPM_FLAGS = "--legacy-peer-deps --force"

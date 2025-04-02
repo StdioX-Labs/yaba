@@ -10,6 +10,10 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Disable storybook integration during build
+  experimental: {
+    disableExperimentalWarning: true,
+  }
 }
 
 export default nextConfig;
