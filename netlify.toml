@@ -1,30 +1,17 @@
 [build]
-  command = "npx pnpm install --no-frozen-lockfile && npx pnpm run build"
+  command = "npm install --no-frozen-lockfile && NEXT_PUBLIC_NETLIFY_SITE=true npm run build"
   publish = ".next"
 
 [build.environment]
+  NEXT_USE_NETLIFY_EDGE = "true"
   NODE_VERSION = "18"
-  NODE_OPTIONS = "--max-old-space-size=4096"
-  NEXT_TELEMETRY_DISABLED = "1"
-  NEXT_DISABLE_CSS_OPTIMIZATION = "true"
-
-[functions]
-  node_bundler = "esbuild"
-  included_files = [".env"]
-
-[functions."___netlify-handler"]
-  external_node_modules = ["@netlify/functions"]
-
-[[redirects]]
-  from = "/_next/image*"
-  to = "/.netlify/images"
-  status = 200
-  force = true
+  NPM_FLAGS = "--no-frozen-lockfile"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[build.processing]
-  skip_processing = false
-[build.processing.images]
-  compress = true
+[[redirects]]
+  from = "/_next/image*"
+  to = "/.netlify/image"
+  status = 200
+  force = true
