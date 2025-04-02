@@ -368,7 +368,15 @@ export default function ContactForm() {
   )
 }
 
-function BookingForm({ form, onSubmit, isSubmitting }) {
+function BookingForm({ 
+  form, 
+  onSubmit, 
+  isSubmitting 
+}: { 
+  form: any; 
+  onSubmit: (data: any) => Promise<void>;
+  isSubmitting: boolean;
+}) {
   const performanceBudget = form.watch("performanceBudget") || 100000
 
   return (
@@ -541,7 +549,15 @@ function BookingForm({ form, onSubmit, isSubmitting }) {
   )
 }
 
-function SongwritingForm({ form, onSubmit, isSubmitting }) {
+function SongwritingForm({ 
+  form, 
+  onSubmit, 
+  isSubmitting 
+}: { 
+  form: any;
+  onSubmit: (data: FormValues) => Promise<void>;
+  isSubmitting: boolean;
+}) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

@@ -2,6 +2,30 @@
 
 import { getImagesFromPublicFolder } from "@/utils/server-image-utils"
 
+
+// Helper function to format camelCase to Title Case with spaces
+function formatCamelCase(text: string): string {
+  // Add space before capital letters and capitalize the first letter
+  const withSpaces = text.replace(/([A-Z])/g, " $1").trim()
+  return withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1)
+}
+
+// Helper function to extract category from filename (part before underscore)
+function getCategoryFromFilename(path: string): string {
+  // Extract filename from path (without directory)
+  const filename = path.split("/").pop() || ""
+
+  // Remove file extension
+  const nameWithoutExtension = filename.split(".")[0]
+
+  // Get the part before underscore if it exists
+  const parts = nameWithoutExtension.split("_")
+  const categoryPart = parts[0]
+
+  // Format the category for display
+  return formatCamelCase(categoryPart)
+}
+
 // Gallery images
 export async function getGalleryImages() {
   const images = await getImagesFromPublicFolder("images/gallery")
@@ -11,13 +35,17 @@ export async function getGalleryImages() {
     return []
   }
 
-  // Map the images to the expected format
-  return images.map((src, index) => ({
-    id: index + 1,
-    src,
-    alt: `Gallery image ${index + 1}`,
-    category: ["live", "studio", "backstage", "photoshoot", "press"][index % 5],
-  }))
+  // Map the images to the expected format with dynamic categories
+  return images.map((src, index) => {
+    // Extract category from filename
+    const category = getCategoryFromFilename(src)
+
+    return {
+      id: index + 1,
+      src,
+      category,
+    }
+  })
 }
 
 // Carousel images
