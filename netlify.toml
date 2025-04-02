@@ -1,30 +1,35 @@
 [build]
-  command = "pnpm install && pnpm run build"
-  publish = "out"
+  command = "npx pnpm install --no-frozen-lockfile && npx pnpm run build"
+  publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
-  NODE_OPTIONS = "--max-old-space-size=8192"
+  NODE_VERSION = "18"
+  NODE_OPTIONS = "--max-old-space-size=4096"
   NEXT_TELEMETRY_DISABLED = "1"
-  PNPM_VERSION = "9.0.0"
+  NEXT_DISABLE_CSS_OPTIMIZATION = "true"
+
+[functions]
+  node_bundler = "esbuild"
+  # Remove the included_files line as it may be including too many files
+
+[[redirects]]
+  from = "/_next/image*"
+  to = "/.netlify/images"
+  status = 200
+  force = true
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+  
+  [plugins.inputs]
+    # Configure function splitting
+    chunk_handlers = true
+    # Set to minimal to reduce function size
+    debug = false
+    # Set a smaller memory size for functions
+    memory_size = 128
 
-# Correct functions configuration
-[functions]
-  node_bundler = "esbuild"
-  directory = "netlify/functions"
-
-# Cache control for static assets
-[[headers]]
-  for = "/_next/static/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# Security headers
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
+[build.processing]
+  skip_processing = false
+[build.processing.images]
+  compress = true
