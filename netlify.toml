@@ -1,8 +1,30 @@
 [build]
-  command = "pnpm install --legacy-peer-deps --force && pnpm run build"
-  publish = "out"
+  command = "npx pnpm install --no-frozen-lockfile && npx pnpm run build"
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "18"
-  NEXT_STATIC_EXPORT = "true"
-  NPM_FLAGS = "--legacy-peer-deps --force"
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  NEXT_TELEMETRY_DISABLED = "1"
+  NEXT_DISABLE_CSS_OPTIMIZATION = "true"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = [".env"]
+
+[functions."___netlify-handler"]
+  external_node_modules = ["@netlify/functions"]
+
+[[redirects]]
+  from = "/_next/image*"
+  to = "/.netlify/images"
+  status = 200
+  force = true
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.processing]
+  skip_processing = false
+[build.processing.images]
+  compress = true
