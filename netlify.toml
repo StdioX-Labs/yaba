@@ -9,15 +9,12 @@
   NEXT_DISABLE_CSS_OPTIMIZATION = "true"
 
 [functions]
-  # Increase the function size limit (default is 10MB)
   included_files = ["**/*"]
   node_bundler = "esbuild"
 
-# Split large functions if needed
 [functions."___netlify-handler"]
   external_node_modules = ["@netlify/functions"]
 
-# Optimize image handling
 [[redirects]]
   from = "/_next/image*"
   to = "/.netlify/images"
@@ -27,10 +24,6 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[[plugins]]
-  package = "@netlify/plugin-pnpm"
-
-# Configure Netlify Image CDN for optimized images
 [build.processing]
   skip_processing = false
 [build.processing.images]
