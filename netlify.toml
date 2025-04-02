@@ -1,17 +1,7 @@
 [build]
-  command = "npm install --no-frozen-lockfile && NEXT_PUBLIC_NETLIFY_SITE=true npm run build"
-  publish = ".next"
+  command = "npm install && npm run build"
+  publish = "out"
 
 [build.environment]
-  NEXT_USE_NETLIFY_EDGE = "true"
   NODE_VERSION = "18"
-  NPM_FLAGS = "--no-frozen-lockfile"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-[[redirects]]
-  from = "/_next/image*"
-  to = "/.netlify/image"
-  status = 200
-  force = true
+  NEXT_STATIC_EXPORT = "true"

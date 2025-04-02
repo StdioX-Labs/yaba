@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Use minimal configuration
-  output: process.env.NEXT_PUBLIC_NETLIFY_SITE ? "export" : undefined,
+  output: 'export',
   images: {
     unoptimized: true,
   },
