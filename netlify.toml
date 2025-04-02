@@ -1,10 +1,11 @@
 [build]
-  command = "npm install --legacy-peer-deps && npm run build"
+  command = "npx pnpm install --no-frozen-lockfile && npx pnpm run build"
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "18"
   NODE_OPTIONS = "--max-old-space-size=4096"
+  NEXT_TELEMETRY_DISABLED = "1"
   NEXT_DISABLE_CSS_OPTIMIZATION = "true"
 
 [functions]
@@ -25,6 +26,9 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[[plugins]]
+  package = "@netlify/plugin-pnpm"
 
 # Configure Netlify Image CDN for optimized images
 [build.processing]
