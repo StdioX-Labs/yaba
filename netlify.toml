@@ -10,7 +10,10 @@
 
 [functions]
   node_bundler = "esbuild"
-  # Remove the included_files line as it may be including too many files
+  included_files = [".env"]
+
+[functions."___netlify-handler"]
+  external_node_modules = ["@netlify/functions"]
 
 [[redirects]]
   from = "/_next/image*"
@@ -20,14 +23,6 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-  
-  [plugins.inputs]
-    # Configure function splitting
-    chunk_handlers = true
-    # Set to minimal to reduce function size
-    debug = false
-    # Set a smaller memory size for functions
-    memory_size = 128
 
 [build.processing]
   skip_processing = false

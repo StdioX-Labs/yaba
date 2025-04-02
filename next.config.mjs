@@ -1,48 +1,60 @@
-let userConfig = undefined
-try {
-  userConfig = await import('./v0-user-next.config')
-} catch (e) {
-  // ignore error
-}
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
+  output: 'standalone',
+  swcMinify: true,
+  experimental: {
+    webpackBuildWorker: true,
+    optimizeCss: true,
   },
   images: {
     unoptimized: true,
   },
-  experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
-  },
-}
-
-mergeConfig(nextConfig, userConfig)
-
-function mergeConfig(nextConfig, userConfig) {
-  if (!userConfig) {
-    return
-  }
-
-  for (const key in userConfig) {
-    if (
-      typeof nextConfig[key] === 'object' &&
-      !Array.isArray(nextConfig[key])
-    ) {
-      nextConfig[key] = {
-        ...nextConfig[key],
-        ...userConfig[key],
-      }
-    } else {
-      nextConfig[key] = userConfig[key]
+  webpack: (config, { isServer }) => {
+    // This helps break down the server bundle into smaller pieces
+    if (isServer) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          minSize: 20000,
+          maxSize: 900000,
+          cacheGroups: {
+            vendors: false,
+            default: false,
+            lib: {
+              test: /node_modules/,
+              priority: 1,
+            },
+          },
+        },
+      };
     }
-  }
+    return config;
+  },
+};
+
+let userConfig = undefined;
+try {
+  userConfig = await import('./v0-user-next.config');
+} catch (e) {
+  // ignore error
 }
 
-export default nextConfig
+// Merge with existing config
+if (userConfig && userConfig.default) {
+  const originalConfig = { ...nextConfig };
+  
+  // Merge the configurations
+  Object.keys(userConfig.default).forEach(key => {
+    if (typeof originalConfig[key] === 'object' && !Array.isArray(originalConfig[key])) {
+      nextConfig[key] = {
+        ...originalConfig[key],
+        ...userConfig.default[key],
+      };
+    } else {
+      nextConfig[key] = userConfig.default[key];
+    }
+  });
+}
+
+export default nextConfig;
